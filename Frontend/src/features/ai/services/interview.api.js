@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api/auth`,
+  baseURL: `${import.meta.env.VITE_API_URL}/api/interview`,
   withCredentials: true,
 });
 
@@ -12,7 +12,7 @@ export const generateReport = async ({jobDescription,selfDescription,resume}) =>
     formData.append('selfDescription', selfDescription);
     formData.append('resume', resume);
 
-    const response = await api.post('/api/interview', formData, {
+    const response = await api.post('/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -26,7 +26,7 @@ export const generateReport = async ({jobDescription,selfDescription,resume}) =>
 
 export const getReportById = async (reportId) => {
   try {
-    const response = await api.get(`/api/interview/${reportId}`);
+    const response = await api.get(`/${reportId}`);
     return response.data.report;
   } catch (error) {
     console.error('Error fetching report by ID:', error);
@@ -36,7 +36,7 @@ export const getReportById = async (reportId) => {
 
 export const getAllReports = async () => {
   try {
-    const response = await api.get('/api/interview');
+    const response = await api.get('/');
     return response.data.reports;
   } catch (error) {
     console.error('Error fetching all reports:', error);
